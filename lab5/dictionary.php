@@ -43,7 +43,7 @@
 				
 				
 			
-            <li><?php echo $value;?></li>
+            <li><?php print_r($value);?></li>
 			
 			
 			<?php } ?>
