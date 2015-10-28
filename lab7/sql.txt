@@ -1,0 +1,110 @@
+CREATE TABLE student (
+	student_id INTEGER NOT NULL PRIMARY KEY,
+	name VARCHAR(10) NOT NULL,
+	year INTEGER NOT NULL DEFAULT "1",
+	dept_no INTEGER NOT NULL,
+	major VARCHAR(20),
+);
+
+CREATE department (
+	dept_no INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	dept_name VARCHAR(20) NOT NULL,
+	office VARCHAR(20) NOT NULL,
+	office_tel VARCHAR(13),
+	UNIQUE(dept_name)
+);
+
+ALTER TABLE student (
+    CHANGE COLUMN major major type VARCHAR(40)
+	ADD COLUMN gender
+	);
+	
+ALTER TABLE department (
+	CHANGE COLUMN dept_name type VARCHAR(40)
+	CHANGE COLUMN office type VARCHAR(30)
+);
+
+INSERT INTO student (student_id, name, year, dept_no, major)
+	VALUES (20070002, 'James Bond', 3, 4, 'Business Administration'), 
+	(20060001, 'Queenie', 4, 4, 'Business Administration'),
+	(20030001, 'Reonardo', 4, 2, 'Electronic Engineering'),
+	(20040003, 'Julia', 3, 2, 'Electronic Engineering'),
+	(20060002, 'Roosevelt', 3, 1, 'Computer Science'),
+	(20100002, 'Fearne', 3, 4, 'Business Administration'),
+	(20110001, 'Chloe', 2, 1, 'Computer Science'),
+	(20080003, 'Amy', 4, 3, 'Law'),
+	(20040002, 'Selina', 4, 5, 'English Literature'),
+	(20070001, 'Ellen', 4, 4, 'Business Administration'),
+	(20100001, 'Kathy', 3, 4, 'Business Administration'), 
+	(20110002, 'Lucy', 2, 2, 'Electronic Engineering'),
+	(20030002, 'Michelle', 5, 1, 'Computer Science'), 
+	(20070003, 'April', 4, 3, 'Law'),
+	(20070005, 'Alicia', 2, 5, 'English Literature'), 
+	(20100003, 'Yullia', 3, 1, 'Computer Science'),
+	(20070007, 'Ashlee', 2, 4, 'Business Administration');
+	
+INSERT INTO department
+	VALUES ('Computer Science', 'Engineering building', '02-3290-0123'),
+	('Electronic Engineering', 'Engineering building', '02-3290-2345'), 
+	('Law', 'Law building', '02-3290-7896'),
+	('Business Administration', 'Administration building', '02-3290-1112'),
+	('English Literature', 'Literature building', '02-3290-4412');
+	
+UPDATE department
+	SET dept_name = 'Electronic and Electrical Engineering'
+	WHERE dept_name = 'Electronic engineering';
+	
+INSERT INTO department (dept_name, office, office_tel)
+VALUES('Education', 'Education Building', '02-3290-2347')
+	
+UPDATE student
+SET dept_no = 6
+WHERE name = 'Chloe';
+	
+DELETE FROM student
+WHERE name = 'Michelle';
+	
+DELETE FROM student
+WHERE name = 'Fearne';
+	
+/* ex4 */
+	
+SELECT *
+FROM student
+WHERE major = 'Computer science';
+
+SELECT student_id, year, major
+FROM student
+
+SELECT *
+FROM student
+WHERE year = 3;
+
+SELECT *
+FROM student
+WHERE year = 1 AND year = 3;
+
+SELECT *
+FROM student s
+JOIN department dep ON s.dept_no = dep.dept_no
+WHERE dep.dept_name = 'Business Administration';
+
+/*ex5*/
+
+SELECT *
+FROM student
+WHERE student_id LIKE '%2007%';
+
+SELECT *
+FROM student
+ORDER BY student_id;
+
+SELECT major, avg(year)
+FROM student
+GROUP BY major
+HAVING avg(year) > 3;
+
+SELECT *
+FROM student
+WHERE student_id LIKE '%2007%' LIMITED 2;
+
